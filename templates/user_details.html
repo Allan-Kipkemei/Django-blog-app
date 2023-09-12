@@ -1,0 +1,60 @@
+{% extends 'base.html'%}
+{% block title %}User Details {{user.id}}{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-center">
+    <img src="/user_profiles/{{user.profile_picture}}" height="200" width="200" alt="">
+</div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">User Details</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tr>
+          <th scope="row">First Name</th>
+          <td>{{user.first_name}}</td>
+        </tr>
+        <tr>
+            <th scope="row">Last Name</th>
+            <td>{{user.last_name}}</td>
+        </tr>
+        <tr>
+            <th scope="row">Email Address</th>
+          <td>{{user.email}}</td>
+        </tr>
+        <tr>
+            <th scope="row">Role</th>
+            <td>{{user.role}}</td>
+        </tr>
+        <tr>
+            <th scope="row">Address</th>
+            <td>{{user.address}}</td>
+        </tr><tr>
+            <th scope="row">State,City and Pincode</th>
+            <td>{{user.state}} {{user.city}} {{user.pincode}}</td>
+        </tr>
+        <tr>
+            {% if currentuser_role == "User" %}
+
+            <th scope="row">Following</th>
+            <td>{% for f in followers %}
+                <a href="/@{{f}}/" class="badge bg-primary">
+                        @{{f}}</a></span>
+                {% endfor %}
+                {% for f in category %}
+                <span class="badge bg-danger">{{f}}</span>
+                {% endfor %}</td>
+                {% endif %}
+        </tr>
+      </table>
+    {% if currentuser_role == "User" %}
+    <a class="btn btn-primary" href="/" role="button">Go To Dashboard</a>
+
+    {% else %}
+    <a class="btn btn-primary" href="/new_post/" role="button">New Post</a>
+    <a class="btn btn-primary" href="/" role="button">My Posts</a>
+    {% endif %}
+
+
+{% endblock %}
